@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Joshua</title>
+<meta name="description" content="Joshua Shabu — software engineer. Projects, in progress and completed." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root { color-scheme: light dark; }
+
+  /* ---------- tokens ---------- */
+  :root {
+    --paper: #f4f7f9;
+    --paper-line: #c9d8e4;
+    --paper-line-strong: #9db4c8;
+    --ink: #12232f;
+    --ink-soft: #445a6b;
+    --blue: #1d5490;
+    --blue-soft: #4a7ba8;
+    --accent: #c96a2e;
+    --status-progress: #c96a2e;
+    --status-done: #2f7a52;
+    --card-bg: #ffffff;
+    --card-border: #d4e0e9;
+    --shadow: 0 1px 0 rgba(18, 35, 47, 0.04);
+    --radius: 3px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0f2338;
+      --paper-line: rgba(180, 210, 235, 0.16);
+      --paper-line-strong: rgba(180, 210, 235, 0.3);
+      --ink: #eaf2fa;
+      --ink-soft: #a9c2d6;
+      --blue: #7fb2e5;
+      --blue-soft: #5f93c4;
+      --accent: #e4964f;
+      --status-progress: #e4964f;
+      --status-done: #6fc493;
+      --card-bg: #132a42;
+      --card-border: rgba(180, 210, 235, 0.18);
+      --shadow: none;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #0f2338;
+    --paper-line: rgba(180, 210, 235, 0.16);
+    --paper-line-strong: rgba(180, 210, 235, 0.3);
+    --ink: #eaf2fa;
+    --ink-soft: #a9c2d6;
+    --blue: #7fb2e5;
+    --blue-soft: #5f93c4;
+    --accent: #e4964f;
+    --status-progress: #e4964f;
+    --status-done: #6fc493;
+    --card-bg: #132a42;
+    --card-border: rgba(180, 210, 235, 0.18);
+    --shadow: none;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  img { max-width: 100%; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: rise 0.7s ease both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  }
+
+  a { color: var(--blue); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  h1, h2, h3 {
+    font-family: "Big Shoulders Display", "Arial Narrow", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+  }
+
+  .label {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- title block (site header) ---------- */
+  header.titleblock {
+    border-bottom: 2px solid var(--paper-line-strong);
+    padding: 20px 0;
+  }
+  .titleblock .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .titleblock .mark {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .titleblock .mark svg { width: 16px; height: 16px; }
+  nav.titleblock-links {
+    display: flex;
+    gap: 22px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+  }
+  nav.titleblock-links a { color: var(--ink-soft); text-decoration: none; }
+  nav.titleblock-links a:hover { color: var(--blue); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding: 90px 0 70px;
+    position: relative;
+  }
+  .hero .label { margin-bottom: 18px; }
+  .hero h1 {
+    font-size: clamp(52px, 10vw, 92px);
+    line-height: 0.94;
+  }
+  .hero p.role {
+    margin-top: 18px;
+    font-size: 20px;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+  .hero .corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--paper-line-strong);
+  }
+  .hero .corner.tl { top: 0; left: -1px; border-right: none; border-bottom: none; }
+  .hero .corner.br { bottom: 8px; right: -1px; border-left: none; border-top: none; }
+
+  /* ---------- section scaffolding ---------- */
+  section { padding: 56px 0; }
+  section + section { border-top: 1px solid var(--paper-line); }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    gap: 12px;
+  }
+  .section-head h2 { font-size: 32px; }
+  .section-head .label { white-space: nowrap; }
+
+  .about p {
+    max-width: 62ch;
+    color: var(--ink-soft);
+    font-size: 17px;
+  }
+  .about p + p { margin-top: 14px; }
+  .about strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- project cards ---------- */
+  .group-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 40px 0 16px;
+  }
+  .group-label:first-child { margin-top: 0; }
+  .group-label .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .group-label.progress .dot { background: var(--status-progress); }
+  .group-label.done .dot { background: var(--status-done); }
+  .group-label .rule { flex: 1; height: 1px; background: var(--paper-line-strong); }
+
+  .cards { display: flex; flex-direction: column; gap: 14px; }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px 24px;
+    position: relative;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 18px; bottom: 18px;
+    width: 3px;
+    background: var(--status-progress);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+  .card:hover { border-color: var(--paper-line-strong); }
+  .card:hover::before { opacity: 1; }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .card h3 { font-size: 24px; letter-spacing: 0.005em; }
+  .status-pill {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .status-pill.progress { color: var(--status-progress); }
+  .status-pill.done { color: var(--status-done); }
+
+  .card p.desc {
+    margin: 10px 0 14px;
+    color: var(--ink-soft);
+    max-width: 58ch;
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11.5px;
+    color: var(--blue-soft);
+    background: color-mix(in srgb, var(--blue) 8%, transparent);
+    border: 1px solid color-mix(in srgb, var(--blue) 22%, transparent);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  /* ---------- footer ---------- */
+  footer {
+    padding: 46px 0 60px;
+  }
+  footer .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  footer .links { display: flex; gap: 20px; font-family: "IBM Plex Mono", monospace; font-size: 13px; }
+  footer .links a { text-decoration: none; color: var(--ink-soft); }
+  footer .links a:hover { color: var(--blue); }
+  footer .links .link-btn {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  footer .links .link-btn:hover { color: var(--blue); }
+  footer .links .copy-state { color: var(--status-done); }
+  footer .copy { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--ink-soft); opacity: 0.8; }
+
+  @media (max-width: 560px) {
+    .hero { padding: 60px 0 44px; }
+    section { padding: 40px 0; }
+    .titleblock nav.titleblock-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="titleblock">
+  <div class="wrap">
+    <span class="mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21 21 3M8 21l13-13M3 16 16 3"/></svg>
+      JOSHUA
+    </span>
+    <nav class="titleblock-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap reveal">
+    <div class="corner tl"></div>
+    <p class="label">Personal site — rev. 01</p>
+    <h1>Joshua</h1>
+    <p class="role">Software engineer, creating opportunities — now based in the United States. Currently deep in an indoor-navigation app called Blueprint.</p>
+    <div class="corner br"></div>
+  </section>
+
+  <section id="about" class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+      <span class="label">01 / Profile</span>
+    </div>
+    <div class="about">
+      <p>I'm a software engineer, creating opportunities — now based in the United States.</p>
+    </div>
+  </section>
+
+  <section id="projects" class="wrap">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <span class="label">02 / Index</span>
+    </div>
+
+    <div class="group-label progress">
+      <span class="dot"></span>
+      <span class="label">In progress</span>
+      <span class="rule"></span>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top">
+          <h3>Blueprint</h3>
+          <span class="status-pill progress">In progress</span>
+        </div>
+        <p class="desc">An iPhone app that shows the indoor layout of a store or building the moment you walk in — counter, restroom, bins, exits — using your location to figure out where you are. Phase one runs on mock data to prove out the core experience; phase two opens it up so people can add real layouts themselves.</p>
+        <div class="tags">
+          <span class="tag">iOS</span>
+          <span class="tag">Prototype</span>
+          <span class="tag">Indoor navigation</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <h3>Swapper</h3>
+          <span class="status-pill progress">In progress</span>
+        </div>
+        <p class="desc">A simplified Uniswap V2-style AMM DEX built from scratch — constant-product swap and liquidity contracts with LP-token bookkeeping, deployed and tested on a local chain, with a React frontend for connecting a wallet, swapping tokens, and adding liquidity. Next up: a public testnet deploy and a hosted frontend.</p>
+        <div class="tags">
+          <span class="tag">Solidity</span>
+          <span class="tag">Smart contracts</span>
+          <span class="tag">Web3</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="group-label done">
+      <span class="dot"></span>
+      <span class="label">Completed</span>
+      <span class="rule"></span>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <div class="card-top">
+          <h3>Collaborative Code Editor</h3>
+          <span class="status-pill done">Built</span>
+        </div>
+        <p class="desc">A real-time editor where multiple people can write and edit code together in the same session. It's built and pushed to GitHub — due for a run-through and a fresh test pass before it's demo-ready.</p>
+        <div class="tags">
+          <span class="tag">Real-time</span>
+          <span class="tag">Collaborative editing</span>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="row">
+    <div class="links">
+      <a href="mailto:joshuashabu59@gmail.com">joshuashabu59@gmail.com</a>
+      <a href="https://github.com/Joshua-Shabu?tab=repositories" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <span class="copy">Built by Joshua — updated 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>
