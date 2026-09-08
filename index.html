@@ -1,17 +1,14 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Joshua</title>
-<meta name="description" content="Joshua Shabu — software engineer. Projects, in progress and completed." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-  :root { color-scheme: light dark; }
-
   /* ---------- tokens ---------- */
   :root {
     --paper: #f4f7f9;
@@ -80,8 +77,6 @@
       linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
     background-size: 32px 32px;
   }
-
-  img { max-width: 100%; }
 
   @media (prefers-reduced-motion: no-preference) {
     .reveal {
@@ -316,9 +311,9 @@
     .titleblock nav.titleblock-links { display: none; }
   }
 </style>
+
 </head>
 <body>
-
 <header class="titleblock">
   <div class="wrap">
     <span class="mark">
@@ -397,6 +392,20 @@
     <div class="cards">
       <article class="card">
         <div class="card-top">
+          <h3>MarketPulse</h3>
+          <span class="status-pill done">Built</span>
+        </div>
+        <p class="desc">A Python ETL pipeline and REST API for daily commodity and economic price data. Pulls real energy-commodity series (WTI crude oil, Brent crude, Henry Hub natural gas) from the Federal Reserve's public FRED API, stores it in SQLite, and serves both raw price history and derived analytics — moving average, rolling volatility, daily return — through a FastAPI service. Covered by 21 passing unit tests.</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">ETL</span>
+          <span class="tag">REST API</span>
+        </div>
+        <a class="card-link" href="https://github.com/Joshua-Shabu/marketpulse" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+      <article class="card">
+        <div class="card-top">
           <h3>Collaborative Code Editor</h3>
           <span class="status-pill done">Built</span>
         </div>
@@ -427,12 +436,37 @@
 <footer class="wrap">
   <div class="row">
     <div class="links">
-      <a href="mailto:joshuashabu59@gmail.com">joshuashabu59@gmail.com</a>
+      <button type="button" class="link-btn" id="email-copy" data-email="joshuashabu59@gmail.com">joshuashabu59@gmail.com <span class="copy-state" aria-hidden="true"></span></button>
       <a href="https://github.com/Joshua-Shabu?tab=repositories" target="_blank" rel="noopener">GitHub</a>
     </div>
     <span class="copy">Built by Joshua — updated 2026</span>
   </div>
 </footer>
 
+<script>
+  (function () {
+    var btn = document.getElementById("email-copy");
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var email = btn.getAttribute("data-email");
+      var state = btn.querySelector(".copy-state");
+      function flash(text) {
+        if (state) {
+          state.textContent = text;
+          setTimeout(function () { state.textContent = ""; }, 1600);
+        }
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(function () {
+          flash("— copied");
+        }).catch(function () {
+          flash("— select & copy: " + email);
+        });
+      } else {
+        flash("— select & copy: " + email);
+      }
+    });
+  })();
+</script>
 </body>
 </html>
