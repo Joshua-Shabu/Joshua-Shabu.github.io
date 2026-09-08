@@ -262,6 +262,16 @@
     max-width: 58ch;
   }
 
+  .card-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .card-link:hover { color: var(--blue); }
+
   .tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .tag {
     font-family: "IBM Plex Mono", monospace;
@@ -395,6 +405,20 @@
           <span class="tag">Real-time</span>
           <span class="tag">Collaborative editing</span>
         </div>
+        <a class="card-link" href="https://github.com/Joshua-Shabu/collaborative-code-editor" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <h3>CodeScout</h3>
+          <span class="status-pill done">Built</span>
+        </div>
+        <p class="desc">An agentic AI assistant that answers questions about a codebase by exploring it itself. Point it at a repo and it uses the Claude API's tool-calling loop — listing directories, searching, reading files — to decide for itself what to look at before it answers, citing the files it actually read. The backend has zero runtime dependencies: it talks to the Claude API directly over fetch instead of through the SDK.</p>
+        <div class="tags">
+          <span class="tag">Agentic AI</span>
+          <span class="tag">Claude API</span>
+          <span class="tag">Tool use</span>
+        </div>
+        <a class="card-link" href="https://github.com/Joshua-Shabu/codescout" target="_blank" rel="noopener">View on GitHub →</a>
       </article>
     </div>
   </section>
